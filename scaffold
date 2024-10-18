@@ -1,0 +1,11 @@
+Scaffold-DbContext "Server=Diego; Database=prueba_almacen; Trusted_Connection=True; TrustServerCertificate=true"Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+
+"ConnectionStrings": {
+  "CadenaSQL": "Server=Diego; Database=prueba_almacen; Trusted_Connection=True; TrustServerCertificate=true;"
+}
+
+
+builder.Services.AddDbContext<Prueba_almacenContext>(o =>
+{
+    o.UseSqlServer(builder.Configuration.GetConnectionString("CadenaSQL"));
+});
