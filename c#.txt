@@ -1,0 +1,38 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class Empleado
+{
+    public string Nombre { get; set; }
+    public decimal Salario { get; set; }
+}
+
+public class Programa
+{
+    public static List<string> ObtenerEmpleadosConSalarioMayor(List<Empleado> empleados, decimal salarioEspecifico)
+    {
+        var empleadosFiltrados = empleados
+            .Where(e => e.Salario > salarioEspecifico)
+            .Select(e => e.Nombre)
+            .ToList();
+
+        return empleadosFiltrados;
+    }
+
+    public static void Main(string[] args)
+    {
+        List<Empleado> empleados = new List<Empleado>
+        {
+            new Empleado { Nombre = "Juan", Salario = 3000 },
+            new Empleado { Nombre = "Ana", Salario = 4000 },
+            new Empleado { Nombre = "Luis", Salario = 2500 },
+            new Empleado { Nombre = "María", Salario = 5000 }
+        };
+
+        decimal salarioEspecifico = 3000;
+        List<string> empleadosConSalarioMayor = ObtenerEmpleadosConSalarioMayor(empleados, salarioEspecifico);
+
+        Console.WriteLine("Empleados con salario mayor a : " + salarioEspecifico );
+    }
+}

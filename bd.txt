@@ -1,0 +1,56 @@
+Crear la base de datos
+CREATE DATABASE Tienda;
+GO
+
+-- Usar la base de datos
+USE Tienda;
+GO
+
+-- Crear la tabla de Clientes
+CREATE TABLE Clientes (
+    ClienteID INT PRIMARY KEY IDENTITY(1,1),
+    Nombre NVARCHAR(100) NOT NULL
+);
+GO
+
+-- Crear la tabla de Pedidos
+CREATE TABLE Pedidos (
+    PedidoID INT PRIMARY KEY IDENTITY(1,1),
+    ClienteID INT,
+    FechaPedido DATETIME,
+    FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID)
+);
+GO
+
+-- Insertar datos en la tabla de Clientes
+INSERT INTO Clientes (Nombre) VALUES 
+('Juan Pérez'),
+('Ana Gómez'),
+('Luis Rodríguez'),
+('María López');
+GO
+
+-- Insertar datos en la tabla de Pedidos
+INSERT INTO Pedidos (ClienteID, FechaPedido) VALUES 
+(1, '2024-01-15'),
+(1, '2024-01-20'),
+(2, '2024-02-10'),
+(3, '2024-03-05'),
+(3, '2024-03-10'),
+(3, '2024-03-15');
+GO
+
+
+-- Consulta para obtener los nombres de los clientes y la cantidad total de pedidos
+SELECT 
+    c.Nombre AS NombreCliente,
+    COUNT(p.PedidoID) AS TotalPedidos
+FROM 
+    Clientes c
+LEFT JOIN 
+    Pedidos p ON c.ClienteID = p.ClienteID
+GROUP BY 
+    c.Nombre
+ORDER BY 
+    c.Nombre;
+GO
